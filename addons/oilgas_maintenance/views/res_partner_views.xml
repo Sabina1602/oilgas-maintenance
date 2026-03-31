@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="view_res_partner_form_inherit_oilgas" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.oilgas</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <group string="Oil and Gas Information">
+                        <field name="is_technician"/>
+                        <field name="employee_id"
+                               invisible="not is_technician"
+                               required="is_technician"/>
+                        <field name="specialization"
+                               invisible="not is_technician"
+                               required="is_technician"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

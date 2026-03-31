@@ -1,0 +1,128 @@
+<odoo>
+    <data>
+
+        <record id="view_oilgas_maintenance_request_list" model="ir.ui.view">
+            <field name="name">oilgas.maintenance.request.list</field>
+            <field name="model">oilgas.maintenance.request</field>
+            <field name="arch" type="xml">
+                <list string="Maintenance Requests"
+                      decoration-success="state == 'done'"
+                      decoration-warning="state == 'in_progress'"
+                      decoration-danger="priority == 'high' and state not in ('done', 'cancelled')"
+                      decoration-muted="state == 'cancelled'">
+                    <field name="name"/>
+                    <field name="equipment_id"/>
+                    <field name="technician_id"/>
+                    <field name="request_date"/>
+                    <field name="completion_date"/>
+                    <field name="priority" widget="badge"
+                           decoration-danger="priority == 'high'"
+                           decoration-warning="priority == 'medium'"
+                           decoration-success="priority == 'low'"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'done'"
+                           decoration-warning="state == 'in_progress'"
+                           decoration-info="state == 'confirmed'"
+                           decoration-muted="state == 'cancelled'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_oilgas_maintenance_request_form" model="ir.ui.view">
+            <field name="name">oilgas.maintenance.request.form</field>
+            <field name="model">oilgas.maintenance.request</field>
+            <field name="arch" type="xml">
+                <form string="Maintenance Request">
+                    <header>
+                        <button name="action_confirm"
+                                string="Confirm"
+                                type="object"
+                                invisible="state != 'draft'"
+                                class="btn-primary"/>
+                        <button name="action_start"
+                                string="Start Work"
+                                type="object"
+                                invisible="state != 'confirmed'"
+                                class="btn-primary"/>
+                        <button name="action_done"
+                                string="Mark as Done"
+                                type="object"
+                                invisible="state != 'in_progress'"
+                                class="btn-success"/>
+                        <button name="action_cancel"
+                                string="Cancel"
+                                type="object"
+                                invisible="state in ('done', 'cancelled')"
+                                class="btn-danger"/>
+                        <field name="state"
+                               widget="statusbar"
+                               statusbar_visible="draft,confirmed,in_progress,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Request Information">
+                                <field name="name"/>
+                                <field name="equipment_id"/>
+                                <field name="technician_id"/>
+                                <field name="priority"/>
+                            </group>
+                            <group string="Dates">
+                                <field name="request_date"/>
+                                <field name="completion_date"
+                                       invisible="state != 'done'"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_oilgas_maintenance_request_search" model="ir.ui.view">
+            <field name="name">oilgas.maintenance.request.search</field>
+            <field name="model">oilgas.maintenance.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Maintenance Requests">
+                    <field name="name"/>
+                    <field name="equipment_id"/>
+                    <field name="technician_id"/>
+                    <filter string="Draft" name="filter_draft"
+                            domain="[('state', '=', 'draft')]"/>
+                    <filter string="In Progress" name="filter_in_progress"
+                            domain="[('state', '=', 'in_progress')]"/>
+                    <filter string="Done" name="filter_done"
+                            domain="[('state', '=', 'done')]"/>
+                    <filter string="High Priority" name="filter_high"
+                            domain="[('priority', '=', 'high')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Equipment" name="group_equipment"
+                                context="{'group_by': 'equipment_id'}"/>
+                        <filter string="Technician" name="group_technician"
+                                context="{'group_by': 'technician_id'}"/>
+                        <filter string="State" name="group_state"
+                                context="{'group_by': 'state'}"/>
+                        <filter string="Priority" name="group_priority"
+                                context="{'group_by': 'priority'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_oilgas_maintenance_request" model="ir.actions.act_window">
+            <field name="name">Maintenance Requests</field>
+            <field name="res_model">oilgas.maintenance.request</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_filter_in_progress': 1}</field>
+            <field name="help">No maintenance requests yet. Create one!</field>
+        </record>
+
+    </data>
+</odoo>

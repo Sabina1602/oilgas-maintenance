@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_equipment_technician,oilgas.equipment technician,model_oilgas_equipment,oilgas_maintenance.group_oilgas_technician,1,1,1,0
+access_equipment_manager,oilgas.equipment manager,model_oilgas_equipment,oilgas_maintenance.group_oilgas_manager,1,1,1,1
+access_maintenance_request_technician,oilgas.maintenance.request technician,model_oilgas_maintenance_request,oilgas_maintenance.group_oilgas_technician,1,1,1,0
+access_maintenance_request_manager,oilgas.maintenance.request manager,model_oilgas_maintenance_request,oilgas_maintenance.group_oilgas_manager,1,1,1,1
+access_res_partner_technician,res.partner technician,model_res_partner,oilgas_maintenance.group_oilgas_technician,1,0,0,0
+access_res_partner_manager,res.partner manager,model_res_partner,oilgas_maintenance.group_oilgas_manager,1,1,1,1

@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+        <!-- CATEGORY -->
+        <record id="module_oilgas_category" model="ir.module.category">
+            <field name="name">Oil and Gas</field>
+        </record>
+
+        <!-- TECHNICIAN GROUP -->
+        <record id="group_oilgas_technician" model="res.groups">
+            <field name="name">Technician</field>
+            <field name="category_id" ref="module_oilgas_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- MANAGER GROUP -->
+        <record id="group_oilgas_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_oilgas_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_oilgas_technician'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

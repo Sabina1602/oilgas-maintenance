@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+        <!--
+            Top level menu — appears in the app switcher grid.
+            This is what you click to enter the Oil & Gas module.
+        -->
+        <menuitem id="menu_oilgas_root"
+                  name="Oil and Gas"
+                  sequence="50"/>
+
+        <!-- EQUIPMENT MENU -->
+        <menuitem id="menu_oilgas_equipment"
+                  name="Equipment"
+                  parent="menu_oilgas_root"
+                  sequence="10"/>
+
+            <menuitem id="menu_oilgas_equipment_list"
+                      name="All Equipment"
+                      parent="menu_oilgas_equipment"
+                      action="action_oilgas_equipment"
+                      sequence="10"/>
+
+        <!-- MAINTENANCE MENU -->
+        <menuitem id="menu_oilgas_maintenance"
+                  name="Maintenance"
+                  parent="menu_oilgas_root"
+                  sequence="20"/>
+
+            <menuitem id="menu_oilgas_maintenance_requests"
+                      name="Maintenance Requests"
+                      parent="menu_oilgas_maintenance"
+                      action="action_oilgas_maintenance_request"
+                      sequence="10"/>
+
+        <!-- CONFIGURATION MENU — managers only -->
+        <menuitem id="menu_oilgas_config"
+                  name="Configuration"
+                  parent="menu_oilgas_root"
+                  groups="oilgas_maintenance.group_oilgas_manager"
+                  sequence="99"/>
+
+    </data>
+</odoo>
