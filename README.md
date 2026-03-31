@@ -1,4 +1,5 @@
 What this system does:
+
 -Equipment management
 Easily keep track of all your field equipment — like pumps, compressors, valves, and generators — in one place. You can store details such as location, serial numbers, type, and current status.
 
